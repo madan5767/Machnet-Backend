@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Beans For task-1   -->
+    <bean id="Nischal" class="com.example.ques1.Student">
+        <property name="studentID" value="1"> </property>
+        <property name="studentName" value="Nischal"> </property>
+    </bean>
+    <bean id="Madan" class="com.example.ques1.Student">
+        <property name="studentID" value="2"> </property>
+        <property name="studentName" value="Madan"> </property>
+    </bean>
+
+    <!--    Beans for task 2-->
+    <bean id="studentBean2" class="com.example.ques2.Student">
+        <property name="studentID" value="1"></property>
+        <property name="studentName" value="Madan"> </property>
+        <property name="studentAddress" ref="addressBean2" ></property>
+    </bean>
+    <bean id="addressBean2" class="com.example.ques2.Address">
+        <property name="address" value="BKT"></property>
+    </bean>
+
+    <!--beans for task 3-->
+    <bean id="task3_student" class="com.example.ques3.Student">
+        <constructor-arg name="studentID" value="5"></constructor-arg>
+        <constructor-arg name="studentName" value="Madan"></constructor-arg>
+        <constructor-arg name="studentAddress" ref="task3_address"></constructor-arg>
+    </bean>
+
+    <bean id="task3_address" class="com.example.ques3.Address">
+        <property name="address" value="BKT"></property>
+    </bean>
+
+    <!--beans for task 4-->
+
+    <bean name="address" class="com.example.ques4.Address">
+        <property name="address" value="BKT"></property>
+    </bean>
+
+<!--        <bean name="student" class="com.springtask4.Student" autowire="byName">-->
+<!--        <property name="studentId" value="7"></property>-->
+<!--        <property name="studentName" value="Madan"></property>-->
+<!--        </bean>-->
+
+<!--        <bean name="student" class="com.springtask4.Student" autowire="byType">-->
+<!--        <property name="studentId" value="7"></property>-->
+<!--        <property name="studentName" value="Madan"></property>-->
+<!--        </bean>-->
+
+    <bean name="student" class="com.example.ques4.Student" autowire="constructor">
+        <property name="studentId" value="7"></property>
+        <property name="studentName" value="Madan"></property>
+    </bean>
+
+</beans>
