@@ -1,5 +1,8 @@
 package com.example.ques3_4_5;
 
+import org.springframework.stereotype.Component;
+
+@Component("javaScript")
 public class JavaScriptProgramming implements Programming{
     @Override
     public void programming(){

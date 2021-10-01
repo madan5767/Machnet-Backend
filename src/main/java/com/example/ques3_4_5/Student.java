@@ -9,13 +9,17 @@ import org.springframework.stereotype.Component;
 public class Student {
     @Value("${studentID}")
     private int studentID;
+
     @Value("${studentName}")
     private String studentName;
+
     @Autowired
     private Address address;
+
     @Autowired
-    @Qualifier("javaScriptProgramming")
+    @Qualifier("javaScript")
     private Programming programming;
+
     @Value("${company}")
     private String company;
 
