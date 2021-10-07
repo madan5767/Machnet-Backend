@@ -31,29 +31,6 @@ public class EmployeeController {
         return new ResponseEntity<Employee>(savedEmployee, HttpStatus.CREATED);
     }
 
-//    public ResponseEntity saveUser(User user) {
-//        try {
-//            String encodedPassword = encoder.encode(user.getPassword());
-//            user.setPassword(encodedPassword);
-//
-//            if (userRepository.existsByUsername(user.getUsername())) {
-//
-//                return ResponseEntity.badRequest().body("Username is already Taken!");
-//            }
-//
-//            if (userRepository.existsByEmail(user.getEmail())) {
-//
-//                return ResponseEntity.badRequest().body("Email is already Taken!");
-//            }
-//
-//            userRepository.save(user);
-//
-//            return ResponseEntity.ok(user.getFirstname() + " Registered Successfully");
-//        } catch (Exception e) {
-//            return ResponseEntity.internalServerError().body("Internal Server Error: " + e);
-//        }
-//    }
-
     @PutMapping("/employee/{id}")
     public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employeeinfo) {
         return service.updateEmployee(id, employeeinfo);

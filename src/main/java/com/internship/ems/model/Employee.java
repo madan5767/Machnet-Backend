@@ -3,11 +3,23 @@ package com.internship.ems.model;
 import com.internship.ems.enums.Gender;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.PrePersist;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "employee", schema = "EMS", uniqueConstraints= {@UniqueConstraint(columnNames={"email"})})
@@ -47,7 +59,6 @@ public class Employee {
     private String designation;
 
     @Column(name ="hire_date", nullable = false)
-    @NotNull
     private LocalDate hireDate;
 
     @Column(name ="resigned_date")
@@ -57,10 +68,10 @@ public class Employee {
     private String address;
 
     //Persistence Life Cycle
-//   @PrePersist
-//    public void PrePersist(){
-//        ZoneId defaultZoneId = ZoneId.systemDefault();
-//        LocalDate localDate = LocalDate.now();
-//        this.setHireDate(LocalDate.from(localDate.atStartOfDay(defaultZoneId).toInstant()));
-//    }
+   @PrePersist
+    public void PrePersist(){
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate localDate = LocalDate.now();
+        this.setHireDate(LocalDate.from(localDate.atStartOfDay(defaultZoneId)));
+    }
 }
