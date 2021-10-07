@@ -30,9 +30,11 @@ public class Employee {
     @Column(name="employee_id")
     private int employeeID;
 
-//    @ColumnDefault("John Snow")
-    @Column(name ="first_name", nullable = false, columnDefinition =  "varchar(255) default 'John Snow'")
+    //    @ColumnDefault("John Snow")
+//    @Column(name ="first_name", nullable = false, columnDefinition =  "varchar(255) default 'John Snow'")
 //    @NotEmpty(message = "Please enter a first name")
+//    private String firstName="John Snow";
+    @Column(insertable=false, updatable = false, nullable = false, columnDefinition = "varchar(255) default 'John Snow'")
     private String firstName;
 
     @Column(name ="last_name", nullable = false)
@@ -68,7 +70,7 @@ public class Employee {
     private String address;
 
     //Persistence Life Cycle
-   @PrePersist
+    @PrePersist
     public void PrePersist(){
         ZoneId defaultZoneId = ZoneId.systemDefault();
         LocalDate localDate = LocalDate.now();
