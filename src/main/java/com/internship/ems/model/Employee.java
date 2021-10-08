@@ -65,12 +65,13 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "departmentId")
+    @JsonBackReference(value = "department")
     private Department department;
 
-    @JsonBackReference
-    public Department getDepartment(){
-        return department;
-    }
+//    @JsonBackReference
+//    public Department getDepartment(){
+//        return department;
+//    }
 
 //    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
 //    private Salary salary;
@@ -81,7 +82,7 @@ public class Employee {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salary_id")
-//    @JsonBackReference
+    @JsonBackReference(value = "salary")
     private Salary salary;
 
 //    @JsonBackReference

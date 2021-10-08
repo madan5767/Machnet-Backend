@@ -37,7 +37,7 @@ public class Salary {
 //    private Employee employee;
 
     @OneToOne(mappedBy = "salary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "salary")
     private Employee employee;
 
     //Persistence Life Cycle

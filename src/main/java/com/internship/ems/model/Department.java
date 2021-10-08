@@ -24,12 +24,13 @@ public class Department {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department",  fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "department")
     private List<Employee> employee;
 
-    @JsonManagedReference
-    public List<Employee> getEmployee(){
-        return employee;
-    }
+//    @JsonManagedReference
+//    public List<Employee> getEmployee(){
+//        return employee;
+//    }
 
     //Persistence Life Cycle
     @PreRemove
