@@ -6,15 +6,17 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import java.util.UUID;
+import java.util.List;
 
-//@Mapper(imports = UUID.class) //automatic conversion of Data types from model to dto types.
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EmployeeMapper {
-    EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
+    EmployeeMapper EMPLOYEE_MAPPER= Mappers.getMapper(EmployeeMapper.class);
 
-//    @Mapping(target="employee_id", expression = "java(UUID.randomUUID().toString())")
-    EmployeeDto modelTODto(Employee employee);
+    EmployeeDto modelToDto(Employee employee);
+
+    List<EmployeeDto> modelsToDtos(List<Employee> employees);
+
     @InheritInverseConfiguration
     Employee dtoToModel(EmployeeDto employeeDto);
+
 }

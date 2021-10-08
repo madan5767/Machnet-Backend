@@ -1,6 +1,7 @@
 package com.internship.ems.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.internship.ems.listener.DepartmentListener;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "department", schema = "EMS")
 @Data
+@EntityListeners(DepartmentListener.class)
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,19 +29,4 @@ public class Department {
     @JsonManagedReference(value = "department")
     private List<Employee> employee;
 
-//    @JsonManagedReference
-//    public List<Employee> getEmployee(){
-//        return employee;
-//    }
-
-    //Persistence Life Cycle
-    @PreRemove
-    public void PreRemove(){
-        System.out.println("Entity "+this+" will be removed.");
-    }
-
-    @PostRemove
-    public void PostRemove(){
-        System.out.println("Entity "+this+" was removed.");
-    }
 }

@@ -1,6 +1,7 @@
 package com.internship.ems.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.internship.ems.listener.SalaryListener;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Table(name = "salary")
 @Data
+@EntityListeners(SalaryListener.class)
 public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,25 +31,8 @@ public class Salary {
     @Column(name="bonus")
     private float bonus;
 
-//    @OneToOne
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
-
-//    @OneToOne(mappedBy = "salary")
-//    private Employee employee;
-
     @OneToOne(mappedBy = "salary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "salary")
     private Employee employee;
 
-    //Persistence Life Cycle
-    @PreRemove
-    public void PreRemove(){
-        System.out.println("Entity "+this+" will be removed.");
-    }
-
-    @PostRemove
-    public void PostRemove(){
-        System.out.println("Entity "+this+" was removed.");
-    }
 }

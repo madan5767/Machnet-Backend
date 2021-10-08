@@ -28,14 +28,4 @@ public class Project {
     @Column(name = "description")
     private String description;
 
-    //Persistence Life Cycle
-    @PreRemove
-    public void PreRemove(){
-        System.out.println("Entity "+this+" will be removed.");
-    }
-
-    @PostRemove
-    public void PostRemove(){
-        System.out.println("Entity "+this+" was removed.");
-    }
 }

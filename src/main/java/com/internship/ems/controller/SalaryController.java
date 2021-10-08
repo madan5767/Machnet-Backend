@@ -1,6 +1,7 @@
 package com.internship.ems.controller;
 
-import com.internship.ems.model.Salary;
+import com.internship.ems.dto.SalaryDto;
+import com.internship.ems.mapper.SalaryMapper;
 import com.internship.ems.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,27 +14,30 @@ import java.util.List;
 @RestController
 public class SalaryController {
     @Autowired
-    SalaryService service;
+    private SalaryService service;
+    @Autowired
+    private SalaryMapper salaryMapper;
 
     @GetMapping("/salary")
-    public List<Salary> getAllSalary(){
-        return service.getAll();
+    public List<SalaryDto> getAllSalary(){
+        return salaryMapper.modelsToDtos(service.getAll());
     }
 
     @GetMapping("/salary/{id}")
-    public Salary getSalaryById(@PathVariable int id){
-        return service.getSalaryById(id);
+    public SalaryDto getSalaryById(@PathVariable int id){
+        return salaryMapper.modelToDto(service.getSalaryById(id));
     }
 
     @PostMapping("/salary")
-    public ResponseEntity<Salary> createSalary(@Valid @RequestBody Salary salary){
-        Salary savedSalary = service.save(salary);
-        return new ResponseEntity<Salary>(savedSalary, HttpStatus.CREATED);
+    public ResponseEntity<SalaryDto> createSalary(@Valid @RequestBody SalaryDto salaryDto) {
+        SalaryDto savedSalary=salaryMapper.modelToDto(service.save(salaryMapper.dtoToModel(salaryDto)));
+        return new ResponseEntity<SalaryDto>(savedSalary, HttpStatus.CREATED);
     }
 
     @PutMapping("/salary/{id}")
-    public Salary updateSalary(@PathVariable int id, @RequestBody Salary salaryinfo) {
-        return service.updateSalary(id, salaryinfo);
+    public ResponseEntity<SalaryDto> updateSalary(@PathVariable int id, @Valid @RequestBody SalaryDto salaryInfo) {
+        SalaryDto updatedSalary=salaryMapper.modelToDto(service.updateSalary(id,salaryMapper.dtoToModel(salaryInfo)));
+        return new ResponseEntity<SalaryDto>(updatedSalary, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/salary/{id}")

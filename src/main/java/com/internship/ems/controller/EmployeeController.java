@@ -2,7 +2,6 @@ package com.internship.ems.controller;
 
 import com.internship.ems.dto.EmployeeDto;
 import com.internship.ems.mapper.EmployeeMapper;
-import com.internship.ems.model.Employee;
 import com.internship.ems.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,38 +14,33 @@ import java.util.List;
 @RestController
 public class EmployeeController {
     @Autowired
-    EmployeeService service;
-//    @Autowired
-//    EmployeeMapper mapper;
+    private EmployeeService service;
+    @Autowired
+    private EmployeeMapper employeeMapper;
 
     @GetMapping("/employees")
-    public List<Employee> getAllEmployee(){
-        return service.getAll();
+    public List<EmployeeDto> getAllEmployee(){
+        return employeeMapper.modelsToDtos(service.getAll());
     }
 
     @GetMapping("/employee/{id}")
-    public Employee getEmployeeById(@PathVariable int id){
-        return service.getEmployeeById(id);
+    public EmployeeDto getEmployeeById(@PathVariable int id){
+        return employeeMapper.modelToDto(service.getEmployeeById(id));
     }
 
-    @PostMapping("/employee")
-    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee){
-        Employee savedEmployee = service.save(employee);
-        return new ResponseEntity<Employee>(savedEmployee, HttpStatus.CREATED);
+    @PostMapping("/employees")
+    public ResponseEntity<EmployeeDto> saveEmployee(@Valid @RequestBody EmployeeDto employeeDto){
+        EmployeeDto employeeDtoSave=employeeMapper.modelToDto(service.save(employeeMapper.dtoToModel(employeeDto)));
+        return new ResponseEntity<EmployeeDto>( employeeDtoSave,HttpStatus.CREATED);
     }
 
-//    @PostMapping("/employee")
-//    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody EmployeeDto employeeDto){
-//        Employee savedEmployee = service.save(mapper.dtoToModel(employeeDto));
-//        return new ResponseEntity<Employee>(savedEmployee, HttpStatus.CREATED);
-//    }
-
-    @PutMapping("/employee/{id}")
-    public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employeeinfo) {
-        return service.updateEmployee(id, employeeinfo);
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable int id,@Valid @RequestBody EmployeeDto employeeInfo) {
+        EmployeeDto employeeDtoUpdate=employeeMapper.modelToDto(service.updateEmployee(id,employeeMapper.dtoToModel(employeeInfo)));
+        return new ResponseEntity<EmployeeDto>(employeeDtoUpdate,HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/employees/{id}")
     public void removeEmployee(@PathVariable int id){
         service.deleteEmployee(id);
     }

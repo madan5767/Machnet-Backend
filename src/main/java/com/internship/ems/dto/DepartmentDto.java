@@ -1,16 +1,18 @@
 package com.internship.ems.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.internship.ems.model.Employee;
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Data
 public class DepartmentDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int departmentID;
+    @NotEmpty(message = "Please enter a department name")
     private String name;
     private String description;
+    @JsonManagedReference(value = "department")
+    private List<Employee> employee;
 }
