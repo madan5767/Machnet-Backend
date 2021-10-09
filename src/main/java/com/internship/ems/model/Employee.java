@@ -19,6 +19,7 @@ import java.time.LocalDate;
 @Table(name = "employee", schema = "EMS", uniqueConstraints= {@UniqueConstraint(columnNames={"email"})})
 @Data
 @EntityListeners(EmployeeListener.class)
+@NamedQuery(name = "Employee.getEmployeeByNamedQuery", query = "select e from Employee e where e.department.departmentID=:id")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.internship.ems.service;
 
+import com.internship.ems.dao.EmployeeDao;
 import com.internship.ems.dao.EmployeeRepository;
 import com.internship.ems.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import java.util.List;
 public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     public Employee save(Employee employee){
         return employeeRepository.save(employee);
@@ -45,5 +49,47 @@ public class EmployeeService {
 
     public void deleteEmployee(int id){
         employeeRepository.deleteById(id);
+    }
+
+    public Employee findEmployeeByEmail(String email) {
+        return employeeRepository.findEmployeeByEmail(email);
+    }
+
+    public List<Employee> getEmployeeByCustomQuery() {
+        return employeeRepository.getEmployeeUsingCustomQuery();
+    }
+
+    public List<Employee> getEmployeeByJpql() {
+        return employeeRepository.getEmployeeUsingJpql();
+    }
+
+    public Employee getEmployeeByFirstNameAndLastName(String firstName, String lastName) {
+        return employeeRepository.getEmployeeByFirstNameAndLastName(firstName, lastName);
+    }
+
+    public List<Employee> getEmployeeByFirstNameAndAge(String firstName, int age) {
+        return employeeRepository.getEmployeeByFirstNameAndAge(firstName, age);
+    }
+
+    public void updateEmployeeById(int employeeID, String firstName) {
+        employeeRepository.updateEmployeeById(employeeID, firstName);
+        System.out.println("Updated using custom query");
+    }
+
+    public void deleteEmployeeById(int employeeID) {
+        employeeRepository.deleteEmployeeById(employeeID);
+        System.out.println("Deleted using custom query");
+    }
+
+    public List<Employee> getByCriteriaApi(float amount, float bonus) {
+        return employeeDao.getEmployee(amount, bonus);
+    }
+
+    public List<Employee> getByTypedQuery(int departmentID) {
+        return employeeDao.getEmployeeByTypedQuery(departmentID);
+    }
+
+    public List<Employee> getByNamedQuery(int departmentID) {
+        return employeeDao.getEmployeeByNamedQuery(departmentID);
     }
 }
