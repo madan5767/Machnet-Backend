@@ -70,7 +70,8 @@ This is employee management system.
 ![Department_image](./snapshots/deleteDepartment.png)
 
 
-#Query
+# Query
+
 1. Custom Query
 
 ![Query_image](./snapshots/customQuery.png)
